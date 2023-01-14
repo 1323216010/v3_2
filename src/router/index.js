@@ -25,6 +25,10 @@ const router = createRouter({
             path:'/chapter',
             component: () => import('../views/novel/Chapter.vue')
         },
+        {
+            path:'/chapter/content',
+            component: () => import('../views/novel/Content.vue')
+        },
     ]
 })
 
