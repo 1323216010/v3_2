@@ -2,6 +2,20 @@
 import axios from 'axios'
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import JSONBig from 'json-bigint'
+
+
+const ax = axios.create({
+  transformResponse: [
+    function (data) {
+      try {
+        return JSONBig.parse(data)
+      } catch (err) {
+        return data
+      }
+    }
+  ]
+})
 
 const router = useRouter();
 
@@ -24,7 +38,7 @@ var queryParams = {
     bookId
 }
 const chapterList = ref([]);
-axios.get("http://localhost:8079/system/chapter/list", {params: queryParams}).then(
+ax.get("http://localhost:8079/system/index/list", {params: queryParams}).then(
     function (res) {
         console.log(res.data.rows);
         chapterList.value = res.data.rows;
@@ -40,7 +54,7 @@ function openContent(id) {
     <div v-for="chapter in chapterList" :key="chapter.id">
         <div style="text-align: center">
             <el-link :underline="false" style="font-size: 1em;" @click="openContent(chapter.id)">
-                {{ chapter.chapterName }}
+                {{ chapter.indexName }}
             </el-link>
         </div>
     </div>

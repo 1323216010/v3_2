@@ -17,7 +17,7 @@ function getId(str) {
 var chapterId = getId(window.location.search.substring(1));
 console.log('chapterId', chapterId)
 const obj = ref({});
-axios.get("http://localhost:8079/system/content/list", {params: {chapterId}}).then(
+axios.get("http://localhost:8079/system/content0/list", {params: {indexId: chapterId}}).then(
     function (res) {
         console.log(res.data.rows[0]);
         obj.value = res.data.rows[0];
